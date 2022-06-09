@@ -41,25 +41,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
-              <ul class="navbar-nav  ">
-                <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Beranda <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="about.html">Tentang </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="shop.html">Katalog</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="glass.html">FAQ</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="contact.html">Hubungi Kami</a>
-                </li>
-              </ul>
-            </div>
+              @yield('kiri')
             <div class="quote_btn-container ">
               <a href="">
                 Masuk
