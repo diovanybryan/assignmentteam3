@@ -31,3 +31,6 @@ Route::post('/logout',[LoginController::class,'logout']);
 
 // Controller Home
 Route::get('/home',[HomeController::class,'index']);
+
+// Controller Pesan
+Route::get('/pesan',[PesanController::class,'index']);
