@@ -61,15 +61,7 @@
               </ul>
             </div>
             <div class="quote_btn-container ">
-              <a href="/login">
-                Masuk
-              </a>
-              <a href="">
-                <img src="images/cart.png" alt="">
-              </a>
-              <form class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
-              </form>
+              @yield('kanan')
             </div>
           </div>
         </nav>

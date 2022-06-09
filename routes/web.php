@@ -27,7 +27,7 @@ Route::post('/login/auth',[LoginController::class,'auth_process']);
 Route::get('/register',[LoginController::class,'register']);
 Route::post('/register/add',[LoginController::class,'add_user']);
 
-Route::post('/logout',[LoginController::class,'logout']);
+Route::get('/logout',[LoginController::class,'logout']);
 
 // Controller Home
 Route::get('/home',[HomeController::class,'index']);

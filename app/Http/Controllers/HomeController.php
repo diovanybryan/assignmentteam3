@@ -25,6 +25,11 @@ class HomeController extends BaseController
 		// $data['role']			= strtoupper(Auth::user()->role);
 		$data['name']			= 'tes';
 		$data['role']			= 'tes';
+		$data['status_login']	= Auth::check();
+
+		// var_dump($data['login_status']);
+		// die();
+
 	    return view('homelanding',$data);
 	}
 
