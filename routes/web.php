@@ -34,3 +34,7 @@ Route::get('/home',[HomeController::class,'index']);
 
 // Controller Pesan
 Route::get('/pesan',[PesanController::class,'index']);
+
+//Home Controller
+Route::get('/insert/{nama}/{img}/{kilometer}', [HomeController::class, 'insertMobil']);
+Route::get('/show_data', [HomeController::class, 'getAllMobil']);

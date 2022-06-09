@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string("id_mobil");
             $table->string("id_user");
+            $table->date("tgl_mulai");
+            $table->date("tgl_akhir");
             $table->string("create_by");
             $table->timestamps();
         });
