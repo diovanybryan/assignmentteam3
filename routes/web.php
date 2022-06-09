@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +17,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
+
+// Controller Login
+Route::get('/login',[LoginController::class,'login']);
+Route::post('/login/auth',[LoginController::class,'auth_process']);
+
+Route::get('/register',[LoginController::class,'register']);
+Route::post('/register/add',[LoginController::class,'add_user']);
+
+Route::post('/logout',[LoginController::class,'logout']);
+
+// Controller Home
+Route::get('/home',[HomeController::class,'index']);
