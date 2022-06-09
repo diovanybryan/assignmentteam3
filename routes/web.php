@@ -17,7 +17,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/home');
 });
 
 // Controller Login

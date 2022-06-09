@@ -21,9 +21,10 @@ class HomeController extends BaseController
 		// $data['list_article'] 	= Kategori::orderBy('id','asc')->get();
 		$data['title'] 			= 'tes';
 		$data['description']	= 'tes';
-		$data['name']			= strtoupper(Auth::user()->name);
-		$data['role']			= strtoupper(Auth::user()->role);
-
+		// $data['name']			= strtoupper(Auth::user()->name);
+		// $data['role']			= strtoupper(Auth::user()->role);
+		$data['name']			= 'tes';
+		$data['role']			= 'tes';
 	    return view('homelanding',$data);
 	}
 
