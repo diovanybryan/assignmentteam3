@@ -31,3 +31,7 @@ Route::post('/logout',[LoginController::class,'logout']);
 
 // Controller Home
 Route::get('/home',[HomeController::class,'index']);
+
+//Home Controller
+Route::get('/insert/{nama}/{img}/{kilometer}', [HomeController::class, 'insertMobil']);
+Route::get('/show_data', [HomeController::class, 'getAllMobil']);
