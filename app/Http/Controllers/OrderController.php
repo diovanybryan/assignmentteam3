@@ -128,12 +128,17 @@ class OrderController extends BaseController
 		$riwayat->id_mobil = $request->id_mobil;
 		$riwayat->id_vendor = $request->id_vendor;
 		$riwayat->kilometer = $request->kilometer;
+		$riwayat->keluhan_kendaraan = $request->keluhan_kendaraan;
 
 		$riwayat->create_by = Auth::user()->role;
 
 		$riwayat->save();
 
-		return redirect('/home');
+		$mobil = tbl_mobil::where('id', $request->id_mobil)->first();
+		$mobil->kilometer = $request->kilometer;
+		
+		$mobil->save();
+		return redirect('/katalog/servis/'.$request->id_mobil);
 	}
 
 	public function update_kilometer(Request $request){

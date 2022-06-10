@@ -33,5 +33,11 @@ class DatabaseSeeder extends Seeder
           'password' => bcrypt('123'),
           'role' => 'admin'
         ]);
+
+        DB::table('tbl_mobil')->insert([
+          'nama' => 'ERTIGA',
+          'img' => 'default.jpg',
+          'kilometer' => 0
+        ]);
     }
 }

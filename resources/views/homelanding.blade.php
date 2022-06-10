@@ -45,12 +45,7 @@
                 @endif
                 @if ($role == 'manager')
                 <li class="nav-item">
-                  <a class="nav-link" href="/service">Management Service Mobil</a>
-                </li>
-                @endif
-                @if ($role == 'manager')
-                <li class="nav-item">
-                  <a class="nav-link" href="/service">Management Vendor Bengkel</a>
+                  <a class="nav-link" href="/servicemanager">Management Service Mobil</a>
                 </li>
                 @endif
               </ul>

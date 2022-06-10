@@ -21,7 +21,7 @@ class ServiceController extends BaseController
 		$data['status_login']	= Auth::check();
 		$data['list_product'] 	= tbl_mobil::orderBy('id','asc')->get();
 
-	    return view('service',$data);
+	    return view('servicemanager',$data);
 	}
 
 	public function contact(Request $request){

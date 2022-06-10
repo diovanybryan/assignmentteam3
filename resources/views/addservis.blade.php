@@ -89,6 +89,10 @@
                     <p>Kilometer Terbaru :</p>
                     <input type="number" id="kilometer" name="kilometer">
                   </div>
+                  <div>
+                    <p>Keluhan Kendaraan :</p>
+                    <input type="text" id="keluhan_kendaraan" name="keluhan_kendaraan">
+                  </div>
                   <div class="mt-3 d-flex justify-content-center ">
                     <input type="hidden" placeholder="id_user" id="id_user" name="id_user" value="{{Auth::user()->id}}">
                     <input type="hidden" placeholder="id_mobil" id="id_mobil" name="id_mobil" value={{$id}}>
@@ -98,7 +102,7 @@
                   </div>
             </form>
                   <div class="mt-5 d-flex justify-content-center ">
-                    <a href="/servis">
+                    <a href="/servicemanager">
                       Kembali ke Servis
                     </a>
                   </div>

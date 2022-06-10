@@ -51,4 +51,4 @@ Route::get('/show_data', [HomeController::class, 'getAllMobil']);
 Route::get('/contactus',[OrderController::class,'contact']);
 Route::get('/myorder',[OrderController::class,'order']);
 
-Route::get('/service',[ServiceController::class,'index']);
+Route::get('/servicemanager',[ServiceController::class,'index']);

@@ -90,7 +90,7 @@
                   </div>
             </form>
                   <div class="mt-5 d-flex justify-content-center ">
-                    <a href="/service">
+                    <a href="/servicemanager">
                       Kembali ke Servis
                     </a>
                   </div>
