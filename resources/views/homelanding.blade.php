@@ -364,13 +364,18 @@
                       <h2>
                         Gaderentcar
                       </h2>
+                      <h3>
+                        Solusi sewa mobil nomor 1
+                      </h3>
                       @if ($role == 'manager')
                       <h2>
                         Manager View
                       </h2>
-                      <h3>
-                        Solusi sewa mobil nomor 1
-                      </h3>
+                      @endif
+                      @if ($role == 'admin')
+                      <h2>
+                        Admin View
+                      </h2>
                       @endif
                       @if ($role == 'user')
                       <div class="btn-box">
