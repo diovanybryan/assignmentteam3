@@ -37,6 +37,7 @@ Route::get('/home',[HomeController::class,'index']);
 Route::get('/katalog',[OrderController::class,'index']);
 Route::get('/katalog/sewa/{id}',[OrderController::class,'sewa_id']);
 Route::get('/katalog/sewa/pesan/{id}',[OrderController::class,'booking']);
+Route::post('/katalog/sewa/pesan/submit',[OrderController::class,'submit_form']);
 
 //Home Controller
 Route::get('/insert/{nama}/{img}/{kilometer}', [HomeController::class, 'insertMobil']);

@@ -211,7 +211,7 @@
               {{$product->kilometer}} KM
             </h6>
             @if(Auth::check() == 1)
-            <a href="/sewa/pesan/{{$product->id}}">Sewa Mobil</a>
+            <a href="/katalog/sewa/pesan/{{$product->id}}">Sewa Mobil</a>
             @else
             <a href="/login">Login Untuk Sewa Mobil</a>
             @endif

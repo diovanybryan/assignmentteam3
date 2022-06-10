@@ -61,9 +61,27 @@ class OrderController extends BaseController
     	return view('detailkatalog',$data);
 	}
 	
-	public function booking(Request $request){
-		$data['status_login']	= Auth::check();
+	public function booking($id){
+		$data['id'] = $id;
+		$data['status_login'] = Auth::check();
 
-	    return view('katalog',$data);
+	    return view('bookingform',$data);
+	}
+
+	public function submit_form(Request $request){
+		$tgl_mulai = date("Y-m-d", strtotime($request->tgl_mulai));
+		$tgl_akhir = date("Y-m-d", strtotime($request->tgl_akhir));
+
+		$sewa = new tbl_sewa;
+		$sewa->tgl_mulai = $request->tgl_mulai;
+		$sewa->tgl_akhir = $request->tgl_akhir;
+		$sewa->id_user = Auth::user()->id;
+		$sewa->id_mobil = $request->id_mobil;
+
+		$sewa->create_by = Auth::user()->role;
+
+		$sewa->save();
+
+		return redirect('/home');
 	}
 }
