@@ -25,18 +25,32 @@
 <!--                 <li class="nav-item">
                   <a class="nav-link" href="about.html">Tentang </a>
                 </li> -->
+                @if ($role == 'user' || $role == 'guest')
                 <li class="nav-item">
                   <a class="nav-link" href="/katalog">Katalog</a>
                 </li>
+                @endif
 <!--                 <li class="nav-item">
                   <a class="nav-link" href="glass.html">FAQ</a>
                 </li> -->
+                @if ($role == 'user' || $role == 'guest')
                 <li class="nav-item">
                   <a class="nav-link" href="/contactus">Hubungi Kami</a>
                 </li>
-                @if ($status_login == true)
+                @endif
+                @if ($role == 'user')
                 <li class="nav-item">
                   <a class="nav-link" href="/myorder">Pesanan Saya</a>
+                </li>
+                @endif
+                @if ($role == 'manager')
+                <li class="nav-item">
+                  <a class="nav-link" href="/service">Management Service Mobil</a>
+                </li>
+                @endif
+                @if ($role == 'manager')
+                <li class="nav-item">
+                  <a class="nav-link" href="/service">Management Vendor Bengkel</a>
                 </li>
                 @endif
               </ul>
@@ -350,14 +364,21 @@
                       <h2>
                         Gaderentcar
                       </h2>
+                      @if ($role == 'manager')
+                      <h2>
+                        Manager View
+                      </h2>
                       <h3>
                         Solusi sewa mobil nomor 1
                       </h3>
+                      @endif
+                      @if ($role == 'user')
                       <div class="btn-box">
                         <a href="/katalog" class="btn-1">
                           Sewa Mobil Sekarang
                         </a>
                       </div>
+                      @endif
                     </div>
                   </div>
                 </div>
@@ -398,6 +419,7 @@
   </section>
 @endsection
 
+@if ($role == 'user' || $role == 'guest')
 @section('glass')
   <section class="glass_section layout_padding">
     <div class="container">
@@ -428,6 +450,7 @@
     </div>
   </section>
 @endsection
+@endif
 
 @section('header')
     <header class="header_section">

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,12 @@ Route::get('/home',[HomeController::class,'index']);
 // Controller Pesan
 Route::get('/katalog',[OrderController::class,'index']);
 Route::get('/katalog/sewa/{id}',[OrderController::class,'sewa_id']);
+Route::get('/katalog/servis/{id}',[OrderController::class,'servis_id']);
 Route::get('/katalog/sewa/pesan/{id}',[OrderController::class,'booking']);
+Route::get('/katalog/servis/tambah/{id}',[OrderController::class,'tambah_servis']);
+Route::get('/katalog/servis/tambahkilometer/{id}',[OrderController::class,'tambah_kilometer']);
+Route::post('/katalog/servis/tambahkilometer/update/',[OrderController::class,'update_kilometer']);
+Route::post('/katalog/servis/tambah/submit',[OrderController::class,'submit_servis']);
 Route::post('/katalog/sewa/pesan/submit',[OrderController::class,'submit_form']);
 
 //Home Controller
@@ -45,3 +50,5 @@ Route::get('/show_data', [HomeController::class, 'getAllMobil']);
 
 Route::get('/contactus',[OrderController::class,'contact']);
 Route::get('/myorder',[OrderController::class,'order']);
+
+Route::get('/service',[ServiceController::class,'index']);

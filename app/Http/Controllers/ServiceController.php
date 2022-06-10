@@ -15,13 +15,13 @@ use App\Models\SewaModel as tbl_sewa;
 use App\Models\RiwayatModel as tbl_riwayat;
 use App\Models\VendorModel as tbl_vendor;
 
-class OrderController extends BaseController
+class ServiceController extends BaseController
 {
 	public function index(Request $request){
 		$data['status_login']	= Auth::check();
 		$data['list_product'] 	= tbl_mobil::orderBy('id','asc')->get();
 
-	    return view('katalog',$data);
+	    return view('service',$data);
 	}
 
 	public function contact(Request $request){
@@ -60,50 +60,12 @@ class OrderController extends BaseController
 
     	return view('detailkatalog',$data);
 	}
-
-	public function servis_id($id){
-		$data['status_login']	= Auth::check();
-		$data['id'] = $id;
-		$data['list_product'] 	= tbl_mobil::where('id',$id)->get();
-
-		$data['list_riwayat'] = DB::table('tbl_riwayat')
-        	    ->join('tbl_vendor', 'tbl_riwayat.id_vendor', '=', 'tbl_vendor.id')
-                ->where('tbl_riwayat.id_mobil', '=', $id)
-                ->get();
-
-		$data['list_riwayat_limit'] = DB::table('tbl_riwayat')
-        	    ->join('tbl_vendor', 'tbl_riwayat.id_vendor', '=', 'tbl_vendor.id')
-                ->where('tbl_riwayat.id_mobil', '=', $id)
-                ->orderBy('kilometer','desc')
-				->limit(3)
-                ->get();
-
-    	return view('detailservis',$data);
-	}
 	
 	public function booking($id){
 		$data['id'] = $id;
 		$data['status_login'] = Auth::check();
 
 	    return view('bookingform',$data);
-	}
-
-	public function tambah_servis($id){
-		$data['id'] = $id;
-		$data['status_login'] = Auth::check();
-		$data['list_vendor'] = DB::table('tbl_vendor')
-                ->orderBy('id','asc')
-                ->get();
-	    return view('addservis',$data);
-	}
-
-	public function tambah_kilometer($id){
-		$data['id'] = $id;
-		$data['status_login'] = Auth::check();
-		$data['list_vendor'] = DB::table('tbl_vendor')
-                ->orderBy('id','asc')
-                ->get();
-	    return view('addkilometer',$data);
 	}
 
 	public function submit_form(Request $request){
@@ -119,28 +81,6 @@ class OrderController extends BaseController
 		$sewa->create_by = Auth::user()->role;
 
 		$sewa->save();
-
-		return redirect('/home');
-	}
-
-	public function submit_servis(Request $request){
-		$riwayat = new tbl_riwayat;
-		$riwayat->id_mobil = $request->id_mobil;
-		$riwayat->id_vendor = $request->id_vendor;
-		$riwayat->kilometer = $request->kilometer;
-
-		$riwayat->create_by = Auth::user()->role;
-
-		$riwayat->save();
-
-		return redirect('/home');
-	}
-
-	public function update_kilometer(Request $request){
-		$mobil = tbl_mobil::where('id', $request->id_mobil)->first();
-		$mobil->kilometer = $request->kilometer;
-		
-		$mobil->save();
 
 		return redirect('/home');
 	}

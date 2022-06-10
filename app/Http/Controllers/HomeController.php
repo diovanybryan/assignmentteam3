@@ -21,7 +21,12 @@ class HomeController extends BaseController
 		$data['title'] 			= 'tes';
 		$data['description']	= 'tes';
 		$data['name']			= 'tes';
-		$data['role']			= 'tes';
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
+		}
+
 		$data['status_login']	= Auth::check();
 		$data['list_product'] 	= tbl_mobil::orderBy('id','asc')->limit(4)->get();
 
