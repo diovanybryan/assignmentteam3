@@ -15,9 +15,16 @@ use App\Models\SewaModel as tbl_sewa;
 use App\Models\RiwayatModel as tbl_riwayat;
 use App\Models\VendorModel as tbl_vendor;
 
-class HomeController extends BaseController
-{
+class HomeController extends BaseController{
+	
+	public function mobil(Request $request){
+		$data['status_login']	= Auth::check();
+		
+	    return view('mobil',$data);
+	}
+	
 	public function index(Request $request){
+		$data['status_login']	= Auth::check();
 		$data['title'] 			= 'tes';
 		$data['description']	= 'tes';
 		$data['name']			= 'tes';
@@ -36,49 +43,56 @@ class HomeController extends BaseController
 	// tbl_mobil
 	public function insertMobil(Request $request){
 		$mobil = new tbl_mobil;
-		// $request->validate([
-		// 	'nama' => 'required',
-		// 	'img' => 'required',
-		// 	'kilometer' => 'required|number',
-		// ]);
-		$mobil->nama = $request->nama;
-		$mobil->img = $request->img;
+		$request->validate([
+			'nama_kendaraan' => 'required',
+			'img' => 'required',
+			'kilometer' => 'required|numeric',
+		]);
+		$mobil->nama = $request->nama_kendaraan;
+		$file = $request->file('img');
+        $fileName = $file->getClientOriginalName();
+        $mobil->img = 'uploads/'.$fileName;
+        $file->move(public_path('uploads'), $fileName);
 		$mobil->kilometer = $request->kilometer;
 		$mobil->save();
-		// return view('/', ['tbl_mobil' => $mobil, 'title' => 'Data Mobil' ]);
 		return $this->getAllMobil();
 	}
 
 	public function getAllMobil(){
-		foreach(tbl_mobil::all() as $all){
-			echo $all->id. '|' .$all->nama. '|' .$all->img. '|' .$all->komentar.'</br>';
-		}
-		// return view('home', ['tbl_mobil' => tbl_mobil::all(), 'title' => 'Data Mobil']);
+		return view('contact', ['tbl_mobil' => tbl_mobil::all(), 'title' => 'DATA MOBIL GADERENTCAR']);
 	}
 
 	public function getForUpdateMobil(Request $request){
-		$mobil = tbl_mobil::where('id', $request->id)->first();
-		return view('/', ['tbl_mobil' => $mobil, 'title' => 'Update Data Mobil' ]);
+		$mobil = tbl_mobil::where('id', $request->id)->get();
+		if($request->flag == "Service"){
+			return view('service', ['tbl_mobil' => $mobil, 'tbl_vendor' => tbl_vendor::all(), 'title' => 'SERVICE MOBIL GADERENTCAR']);
+		} else {
+			return view('contact', ['tbl_mobil' => $mobil, 'title' => 'UPDATE MOBIL GADERENTCAR']);
+		}
 	}
 
 	public function updateMobil(Request $request){
 		$mobil = tbl_mobil::where('id', $request->id)->first();
 		$request->validate([
-			'nama' => 'required',
-			'img' => 'required',
-			'kilometer' => 'required'
+			'nama_kendaraan' => 'required',
+			'kilometer' => 'required|numeric',
 		]);
-		$mobil->nama = $request->nama;
-		$mobil->img = $request->img;
+		$mobil->nama = $request->nama_kendaraan;
+		if($request->img != null){
+			$file = $request->file('img');
+			$fileName = $file->getClientOriginalName();
+			$mobil->img = 'uploads/'.$fileName;
+			$file->move(public_path('uploads'), $fileName);
+		}
 		$mobil->kilometer = $request->kilometer;
 		$mobil->save();
-		return view('/', ['tbl_mobil' => $mobil, 'title' => 'Data Mobil' ]);
+		return $this->getAllMobil();
 	}
 	
 	public function deleteMobil(Request $request){
 		$mobil = tbl_mobil::where('id', $request->id)->first();
 		$mobil->delete();
-		return view('/', ['tbl_mobil' => $mobil, 'title' => 'Data Mobil' ]);
+		return $this->getAllMobil();
 	}
 	
 
@@ -142,17 +156,19 @@ class HomeController extends BaseController
 	public function insertRiwayat(Request $request){
 		$riwayat = new tbl_riwayat;
 		$request->validate([
-			'id_mobil ' => 'required',
+			'id_mobil' => 'required',
 			'id_vendor' => 'required',
 			'create_by' => 'required',
-			'kilometer' => 'required'
+			'kilometer' => 'required',
+			'keluhan' => 'required'
 		]);
 		$riwayat->id_mobil  = $request->id_mobil;
 		$riwayat->id_vendor = $request->id_vendor;
 		$riwayat->create_by = $request->create_by;
 		$riwayat->kilometer = $request->kilometer;
+		$riwayat->keluhan_kendaraan = $request->keluhan;
 		$riwayat->save();
-		return view('/', ['tbl_riwayat' => $riwayat, 'title' => 'Data Mobil' ]);
+		return $this->getAllMobil();
 	}
 
 	public function getAllRiwayat(){
@@ -198,10 +214,7 @@ class HomeController extends BaseController
 	}
 
 	public function getAllVendor(){
-		foreach(tbl_vendor::all() as $all){
-			echo $all->id. '|' .$all->nama.'</br>';
-		}
-		// return view('home', ['tbl_vendor' => tbl_vendor::all(), 'title' => 'Data Vendor']);
+		return view('service', ['tbl_vendor' => tbl_vendor::all(), 'title' => 'SERVICE MOBIL GADERENTCAR']);
 	}
 
 	public function getForUpdateVendor(Request $request){

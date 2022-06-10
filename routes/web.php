@@ -44,11 +44,23 @@ Route::post('/katalog/servis/tambahkilometer/update/',[OrderController::class,'u
 Route::post('/katalog/servis/tambah/submit',[OrderController::class,'submit_servis']);
 Route::post('/katalog/sewa/pesan/submit',[OrderController::class,'submit_form']);
 
+
+Route::get('/myorder',[OrderController::class,'order']);
+
 //Home Controller
-Route::get('/insert/{nama}/{img}/{kilometer}', [HomeController::class, 'insertMobil']);
+Route::get('/cars',[HomeController::class,'getAllMobil']);
+Route::post('/insertMobil', [HomeController::class, 'insertMobil']);
+Route::get('/delete/{id}', [HomeController::class, 'deleteMobil']);
+Route::get('/editMobil/{id}', [HomeController::class, 'getForUpdateMobil']);
+Route::post('/edit', [HomeController::class, 'updateMobil']);
 Route::get('/show_data', [HomeController::class, 'getAllMobil']);
 
 Route::get('/contactus',[OrderController::class,'contact']);
 Route::get('/myorder',[OrderController::class,'order']);
 
 Route::get('/servicemanager',[ServiceController::class,'index']);
+
+//Service mobil
+Route::get('/service', [HomeController::class, 'getAllVendor']);
+Route::get('/daftarService/{id}/{flag}', [HomeController::class,'getForUpdateMobil']);
+Route::post('/serviceMobil', [HomeController::class, 'insertRiwayat']);
