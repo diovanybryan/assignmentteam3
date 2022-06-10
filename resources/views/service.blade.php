@@ -1,12 +1,10 @@
 @extends('templates.rent')
 @section('kanan')
-    @if (true)
+    @if ($status_login)
         <a href="/logout">
             Keluar
         </a>
-    @endif
-
-    @if (false)
+    @else
         <a href="/login">
             Masuk
         </a>
@@ -61,42 +59,53 @@
           <div class="col-md-6 mx-auto">
               <div class="contact_form-container">
                 <div>
-                  @if($title == "DATA SERVICE MOBIL")
-                  <table border = "1px" width="100%">
+                  @if($title == "DATA SERVICE MOBIL GADERENTCAR")
+                  <table border = "1px" width="100%" class="table table-dark">
                     <tr align="center">
+                      <th>Mobil</th>
                       <th>Nama</th>
                       <th>Kilometer</th>
-                      <th>Foto</th>
-                      <th>Aksi</th>
+                      <th>Bengkel</th>
+                      <th>PIC Pengajuan Service</th>
+                      <!-- <th>Aksi</th> -->
                     </tr>
-                    @foreach($tbl_mobil as $m)
+                    @foreach($tbl_riwayat as $r)
                     <tr>
-                      <td>{{$m->nama}}</td>
-                      <td>{{$m->kilometer}}</td>
-                      <td align="center"><img src = "{{URL::to($m->img)}}" style="width: 165px;"/></td>
-                      <td align="center">
-                        <a href="/editMobil/{{$m->id}}"> Edit </a> </br> 
-                        <a href="/delete/{{$m->id}}" onclick="return confirm('Are you sure Delete {{$m->nama}}?')"> Delete </a> </br>
-                        <a href="/daftarService/{{$m->id}}" onclick="return confirm('Are you sure Service {{$m->nama}}?')"> Service Kendaraan </a>
-                    </td>
+                        @if($r->img)
+                          <td align="center"><img src = "{{URL::to($r->img)}}" style="width: 165px;"/></td>
+                        @endif
+                        <td>{{$r->merk_mobil}}</td>
+                        <td>{{$r->kilometer}}</td>
+                        <td>{{$r->bengkel}}</td>
+                        <td>{{$r->pic}}</td>
+                        <!-- <td align="center"><a href="/editService/{{$r->id}}"> Edit </a></td> -->
                     </tr>
                     @endforeach
                   </table>
                   </br>
-                <form method = "POST" action="/insertMobil" enctype="multipart/form-data">
+                <form method = "POST" action="/serviceMobil/vendor">
                 @csrf
                     <div>
-                      <input type="text" name = "nama_kendaraan" placeholder="Nama Kendaraan">
+                      <label style="color:#878889"> Select Vendor </label>
+                      <select name="id_vendor" class="form-control">
+                        @foreach($tbl_vendor as $v)
+                        <option value="{{$v->id}}">{{$v->nama}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div>
+                      <input type="text" name = "id_mobil" placeholder="Nomor Polisi">
+                    </div>
+                    <div>
+                      <input type="text" name = "create_by" placeholder="Nama Pemilik">
                     </div>
                     <div>
                       <input type="number" name = "kilometer" placeholder="Kilometer">
                     </div>
                     <div>
-                      <input type="file" name = "img" placeholder="Upload Foto">
+                      <label style="color:#878889"> Keluhan Kendaraan Anda </label>
+                      <textarea name = "keluhan" placeholder="Keluhan Kendaraan Anda" class="form-control" style="height: 150px;"></textarea>
                     </div>
-                    <!-- <div class="">
-                      <input type="text" placeholder="Message" class="message_input">
-                    </div> -->
                     <div class="mt-5 d-flex justify-content-center ">
                       <button type="submit">
                         Save
@@ -104,7 +113,7 @@
                     </div>
                 </form>
                 @elseif($title == "SERVICE MOBIL GADERENTCAR")
-                <form method = "POST" action="/serviceMobil">
+                <form method = "POST" action="/serviceMobil/Service">
                 @csrf
                     @foreach($tbl_mobil as $m)
                     <div align="center">
@@ -143,29 +152,31 @@
                       </button>
                     </div>
                 </form>
-                @else
-                <form method = "POST" action="/edit" enctype="multipart/form-data">
-                @csrf
-                  @foreach($tbl_mobil as $m)
-                    <div style="display: none;">
-                      <input type="text" name = "id" placeholder="id" value="{{$m->id}}">
-                    </div>
-                    <div>
-                      <input type="text" name = "nama_kendaraan" placeholder="Nama Kendaraan" value="{{$m->nama}}">
-                    </div>
-                    <div>
-                      <input type="number" name = "kilometer" placeholder="Kilometer" value="{{$m->kilometer}}">
-                    </div>
-                    <div>
-                      <input type="file" name = "img" placeholder="Upload Foto" value="{{$m->img}}">
-                    </div>
+                @elseif($title == "INSERT VENDOR")
+                  <table border = "1px" width="100%" class="table table-dark">
+                    <tr align="center">
+                      <th>Id</th>
+                      <th>Nama Vendor Bengkel</th>
+                    </tr>
+                    @foreach($tbl_vendor as $v)
+                    <tr align="center">
+                        <td>{{$v->id}}</td>
+                        <td>{{$v->nama}}</td>
+                    </tr>
                     @endforeach
+                  </table>
+                  </br>
+                  <form method = "POST" action="/insertVendor">
+                  @csrf
+                    <div>
+                      <input type="text" name = "nama" placeholder="Nama Vendor">
+                    </div>
                     <div class="mt-5 d-flex justify-content-center ">
                       <button type="submit">
-                        Update
+                        Save
                       </button>
                     </div>
-                </form>
+                  </form>
                 @endif
                 <div>
                 @if($errors->any())

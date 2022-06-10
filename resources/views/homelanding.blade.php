@@ -41,6 +41,12 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/cars">Admin Management Mobil</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/vendor">Admin Bengkel Vendor</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/serviceView">Admin Data Service</a>
+                </li>
                 @endif
               </ul>
             </div>
