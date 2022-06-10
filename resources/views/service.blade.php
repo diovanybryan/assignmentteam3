@@ -23,23 +23,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/home">Beranda</a>
                 </li>
-<!--                 <li class="nav-item">
-                  <a class="nav-link" href="about.html">Tentang </a>
-                </li> -->
                 <li class="nav-item">
-                  <a class="nav-link" href="/katalog">Katalog</a>
+                  <a class="nav-link" href="/cars">Admin Management Mobil</a>
                 </li>
-<!--                 <li class="nav-item">
-                  <a class="nav-link" href="glass.html">FAQ</a>
-                </li> -->
-                <li class="nav-item active">
-                  <a class="nav-link" href="/cars">Hubungi Kami <span class="sr-only">(current)</span></a>
-                </li>
-                @if (true)
-                <li class="nav-item">
-                  <a class="nav-link" href="/myorder">Pesanan Saya</a>
-                </li>
-                @endif
               </ul>
             </div>
 @endsection
