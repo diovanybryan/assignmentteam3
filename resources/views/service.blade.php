@@ -66,8 +66,8 @@
                       <th>Nama</th>
                       <th>Kilometer</th>
                       <th>Bengkel</th>
-                      <th>PIC Pengajuan Service</th>
-                      <!-- <th>Aksi</th> -->
+                      <th>PIC</th>
+                      <th>TGL Masuk</th>
                     </tr>
                     @foreach($tbl_riwayat as $r)
                     <tr>
@@ -78,7 +78,7 @@
                         <td>{{$r->kilometer}}</td>
                         <td>{{$r->bengkel}}</td>
                         <td>{{$r->pic}}</td>
-                        <!-- <td align="center"><a href="/editService/{{$r->id}}"> Edit </a></td> -->
+                        <td>{{$r->created_at}}</td>
                     </tr>
                     @endforeach
                   </table>

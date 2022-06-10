@@ -215,7 +215,8 @@ class HomeController extends BaseController{
 				'tbl_mobil.nama as merk_mobil',
 				'tbl_riwayat.kilometer',
 				'tbl_vendor.nama as bengkel',
-				'tbl_riwayat.create_by as pic'
+				'tbl_riwayat.create_by as pic',
+				'tbl_riwayat.created_at',
 			)
 			->get()
 			->union(
@@ -229,7 +230,8 @@ class HomeController extends BaseController{
 					'tbl_riwayat.id_mobil as merk_mobil',
 					'tbl_riwayat.kilometer',
 					'tbl_vendor.nama as bengkel',
-					'tbl_riwayat.create_by as pic'
+					'tbl_riwayat.create_by as pic',
+					'tbl_riwayat.created_at',
 				)->get()
 			);
 		return view('service', ['tbl_riwayat' => $tbl_riwayat, 'tbl_vendor' => tbl_vendor::all(), 'title' => 'DATA SERVICE MOBIL GADERENTCAR'], $data);
