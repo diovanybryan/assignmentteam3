@@ -1,26 +1,59 @@
-@extends('templates.logintemplate')
-@section('title','REGISTER PAGE - DIOVAPESTORE')
-@section('form')
-  <form class="modal-content animate" action="/register/add" method="post">
-    @csrf
-    <div class="imgcontainer">
-      <h2>{{$title}}</h2>
-      <h3>{{$description}}</h3>
-    </div>
+@extends('templates.rent')
+@section('header')
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
+          <a class="navbar-brand mr-5" href="index.html">
+            <span>
+              GADERENTCAR
+            </span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </nav>
+      </div>
+    </header>
+  <section class="contact_section layout_padding">
+      <div class="container">
+        <h2>
+          Form Registration
+        </h2>
+        <div class="">
+          <div class="row">
+            <div class="col-md-6 mx-auto">
+              <form action="/register/add" method="post">
+                @csrf
+                <div class="contact_form-container">
+                  <div>
+                    <div>
+                      <input type="email" placeholder="Email" id="email" name="email">
+                    </div>
+                    <div class="">
+                      <input type="text" placeholder="Nama" class="message_input" id="name" name="name">
+                    </div>
+                    <div class="">
+                      <input type="password" placeholder="Password" class="message_input" id="password" name="password">
+                    </div>
+                    <div class="mt-5 d-flex justify-content-center ">
+                      <button type="submit">
+                        Daftar
+                      </button>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-center ">
+                      <a href="/login">Kembali ke Login</a>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-center ">
+                      <a href="/home">Kembali ke Beranda</a>
+                    </div>
+                  </div>
 
-    <div class="container">
-      <label><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" required>
-      <label><b>Nama</b></label>
-      <input type="text" placeholder="Enter Nama" name="name" required>
-      <label><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-      <button type="submit" style="background-color: #000000">Register</button>
-      <a href="/login">Back to Login</a>
-      <label>
-      </label>
-    </div>
-    <div class="container" style="background-color:#f1f1f1">
-    </div>
-  </form>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>    
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\DB;
 
 // use App\Models\Param;
 use App\Models\Kategori;
@@ -17,18 +18,12 @@ use App\Models\VendorModel as tbl_vendor;
 class HomeController extends BaseController
 {
 	public function index(Request $request){
-		// $param 					= Param::where('name', 'KATEGORI')->first();
-		// $data['list_article'] 	= Kategori::orderBy('id','asc')->get();
 		$data['title'] 			= 'tes';
 		$data['description']	= 'tes';
-		// $data['name']			= strtoupper(Auth::user()->name);
-		// $data['role']			= strtoupper(Auth::user()->role);
 		$data['name']			= 'tes';
 		$data['role']			= 'tes';
 		$data['status_login']	= Auth::check();
-
-		// var_dump($data['login_status']);
-		// die();
+		$data['list_product'] 	= tbl_mobil::orderBy('id','asc')->limit(4)->get();
 
 	    return view('homelanding',$data);
 	}

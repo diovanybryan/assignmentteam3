@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 
 
 /*
@@ -33,8 +34,13 @@ Route::get('/logout',[LoginController::class,'logout']);
 Route::get('/home',[HomeController::class,'index']);
 
 // Controller Pesan
-Route::get('/pesan',[PesanController::class,'index']);
+Route::get('/katalog',[OrderController::class,'index']);
+Route::get('/katalog/sewa/{id}',[OrderController::class,'sewa_id']);
+Route::get('/katalog/sewa/pesan/{id}',[OrderController::class,'booking']);
 
 //Home Controller
 Route::get('/insert/{nama}/{img}/{kilometer}', [HomeController::class, 'insertMobil']);
 Route::get('/show_data', [HomeController::class, 'getAllMobil']);
+
+Route::get('/contactus',[OrderController::class,'contact']);
+Route::get('/myorder',[OrderController::class,'order']);

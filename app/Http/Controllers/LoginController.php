@@ -20,7 +20,7 @@ class LoginController extends BaseController
 		$data['title'] 			= 'WELCOME PAGE';
 		$data['description']	= 'PLEASE LOGIN TO YOUR ACCOUNT';
 
-	    return view('login',$data);
+	    return view('newlogin',$data);
 	}
 
 	public function auth_process(Request $request){
