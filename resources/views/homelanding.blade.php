@@ -22,20 +22,9 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="/home">Beranda <span class="sr-only">(current)</span></a>
                 </li>
-<!--                 <li class="nav-item">
-                  <a class="nav-link" href="about.html">Tentang </a>
-                </li> -->
                 @if ($role == 'user' || $role == 'guest')
                 <li class="nav-item">
                   <a class="nav-link" href="/katalog">Katalog</a>
-                </li>
-                @endif
-<!--                 <li class="nav-item">
-                  <a class="nav-link" href="glass.html">FAQ</a>
-                </li> -->
-                @if ($role == 'user' || $role == 'guest')
-                <li class="nav-item">
-                  <a class="nav-link" href="/contactus">Hubungi Kami</a>
                 </li>
                 @endif
                 @if ($role == 'user')
@@ -46,6 +35,11 @@
                 @if ($role == 'manager')
                 <li class="nav-item">
                   <a class="nav-link" href="/servicemanager">Management Service Mobil</a>
+                </li>
+                @endif
+                @if ($role == 'admin')
+                <li class="nav-item">
+                  <a class="nav-link" href="/cars">Admin Management Mobil</a>
                 </li>
                 @endif
               </ul>

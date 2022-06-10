@@ -21,23 +21,31 @@
             <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
               <ul class="navbar-nav  ">
                 <li class="nav-item">
-                  <a class="nav-link" href="/home">Beranda</a>
+                  <a class="nav-link" href="/home">Beranda <span class="sr-only">(current)</span></a>
                 </li>
-<!--                 <li class="nav-item">
-                  <a class="nav-link" href="about.html">Tentang </a>
-                </li> -->
+                @if ($role == 'user' || $role == 'guest')
                 <li class="nav-item">
                   <a class="nav-link" href="/katalog">Katalog</a>
                 </li>
-<!--                 <li class="nav-item">
-                  <a class="nav-link" href="glass.html">FAQ</a>
-                </li> -->
-                <li class="nav-item active">
-                  <a class="nav-link" href="/cars">Hubungi Kami <span class="sr-only">(current)</span></a>
+                @endif
+                @if ($role == 'user' || $role == 'guest')
+                <li class="nav-item">
+                  <a class="nav-link" href="/contactus">Hubungi Kami</a>
                 </li>
-                @if (true)
+                @endif
+                @if ($role == 'user')
                 <li class="nav-item">
                   <a class="nav-link" href="/myorder">Pesanan Saya</a>
+                </li>
+                @endif
+                @if ($role == 'manager')
+                <li class="nav-item">
+                  <a class="nav-link" href="/servicemanager">Management Service Mobil</a>
+                </li>
+                @endif
+                @if ($role == 'admin')
+                <li class="nav-item active">
+                  <a class="nav-link" href="/cars">Admin Management Mobil <span class="sr-only">(current)</span></a>
                 </li>
                 @endif
               </ul>

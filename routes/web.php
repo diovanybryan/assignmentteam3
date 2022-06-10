@@ -44,9 +44,6 @@ Route::post('/katalog/servis/tambahkilometer/update/',[OrderController::class,'u
 Route::post('/katalog/servis/tambah/submit',[OrderController::class,'submit_servis']);
 Route::post('/katalog/sewa/pesan/submit',[OrderController::class,'submit_form']);
 
-
-Route::get('/myorder',[OrderController::class,'order']);
-
 //Home Controller
 Route::get('/cars',[HomeController::class,'getAllMobil']);
 Route::post('/insertMobil', [HomeController::class, 'insertMobil']);

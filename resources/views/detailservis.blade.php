@@ -46,7 +46,7 @@
                 @endif
                 @if (Auth::user()->role == 'manager')
                 <li class="nav-item active">
-                  <a class="nav-link" href="/service">Management Service Mobil <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="/servicemanager">Management Service Mobil <span class="sr-only">(current)</span></a>
                 </li>
                 @endif
               </ul>

@@ -23,17 +23,8 @@
                 <li class="nav-item">
                   <a class="nav-link" href="/home">Beranda</a>
                 </li>
-<!--                 <li class="nav-item">
-                  <a class="nav-link" href="about.html">Tentang </a>
-                </li> -->
                 <li class="nav-item">
                   <a class="nav-link" href="/katalog">Katalog</a>
-                </li>
-<!--                 <li class="nav-item">
-                  <a class="nav-link" href="glass.html">FAQ</a>
-                </li> -->
-                <li class="nav-item">
-                  <a class="nav-link" href="/contactus">Hubungi Kami</a>
                 </li>
                 @if ($status_login == true)
                 <li class="nav-item active">
@@ -163,9 +154,6 @@
             <h6>
               {{$product->kilometer}} KM
             </h6>
-            <a href="/katalog/{{ $product->id }}">
-              Sewa
-            </a>
           </div>
         </div>
     @endforeach

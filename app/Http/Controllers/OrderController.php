@@ -36,6 +36,7 @@ class OrderController extends BaseController
             ->join('tbl_mobil', 'tbl_sewa.id_mobil', '=', 'tbl_mobil.id')
             ->join('users', 'tbl_sewa.id_user', '=', 'users.id')
             ->select('users.name', 'tbl_mobil.nama', 'tbl_mobil.kilometer', 'tbl_mobil.id')
+            ->where('users.id', '=', Auth::user()->id)
             ->get();
 
 	    return view('order',$data);
@@ -120,7 +121,7 @@ class OrderController extends BaseController
 
 		$sewa->save();
 
-		return redirect('/home');
+	    return redirect('/myorder');
 	}
 
 	public function submit_servis(Request $request){
@@ -147,6 +148,6 @@ class OrderController extends BaseController
 		
 		$mobil->save();
 
-		return redirect('/home');
+		return redirect('/katalog/servis/'.$request->id_mobil);
 	}
 }

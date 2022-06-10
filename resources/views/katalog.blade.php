@@ -32,9 +32,6 @@
 <!--                 <li class="nav-item">
                   <a class="nav-link" href="glass.html">FAQ</a>
                 </li> -->
-                <li class="nav-item">
-                  <a class="nav-link" href="/contactus">Hubungi Kami</a>
-                </li>
                 @if ($status_login == true)
                 <li class="nav-item">
                   <a class="nav-link" href="/myorder">Pesanan Saya</a>

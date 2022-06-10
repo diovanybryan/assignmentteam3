@@ -25,9 +25,6 @@ class HomeController extends BaseController{
 	
 	public function index(Request $request){
 		$data['status_login']	= Auth::check();
-		$data['title'] 			= 'tes';
-		$data['description']	= 'tes';
-		$data['name']			= 'tes';
 		if (Auth::check() == 0) {
 			$data['role']			= 'guest';
 		} else {
@@ -59,7 +56,12 @@ class HomeController extends BaseController{
 	}
 
 	public function getAllMobil(){
-		return view('contact', ['tbl_mobil' => tbl_mobil::all(), 'title' => 'DATA MOBIL GADERENTCAR']);
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
+		}
+		return view('contact', ['tbl_mobil' => tbl_mobil::all(), 'title' => 'DATA MOBIL GADERENTCAR'], $data);
 	}
 
 	public function getForUpdateMobil(Request $request){
