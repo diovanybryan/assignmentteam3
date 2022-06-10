@@ -60,4 +60,9 @@ Route::get('/servicemanager',[ServiceController::class,'index']);
 //Service mobil
 Route::get('/service', [HomeController::class, 'getAllVendor']);
 Route::get('/daftarService/{id}/{flag}', [HomeController::class,'getForUpdateMobil']);
-Route::post('/serviceMobil', [HomeController::class, 'insertRiwayat']);
+Route::post('/serviceMobil/{flag}', [HomeController::class, 'insertRiwayat']);
+
+Route::get('/serviceView', [HomeController::class, 'getAllRiwayat']);
+
+Route::get('/vendor', [HomeController::class, 'getAllVendor']);
+Route::post('/insertVendor', [HomeController::class, 'insertVendor']);

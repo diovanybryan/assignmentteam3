@@ -1,12 +1,10 @@
 @extends('templates.rent')
 @section('kanan')
-    @if (true)
+    @if ($status_login)
         <a href="/logout">
             Keluar
         </a>
-    @endif
-
-    @if (false)
+    @else
         <a href="/login">
             Masuk
         </a>
@@ -44,8 +42,14 @@
                 </li>
                 @endif
                 @if ($role == 'admin')
-                <li class="nav-item active">
-                  <a class="nav-link" href="/cars">Admin Management Mobil <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                  <a class="nav-link" href="/cars">Admin Management Mobil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/vendor">Admin Bengkel Vendor</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/serviceView">Admin Data Service</a>
                 </li>
                 @endif
               </ul>
@@ -84,7 +88,7 @@
               <div class="contact_form-container">
                 <div>
                   @if($title == "DATA MOBIL GADERENTCAR")
-                  <table border = "1px" width="100%">
+                  <table border = "1px" width="100%" class="table table-dark">
                     <tr align="center">
                       <th>Nama</th>
                       <th>Kilometer</th>

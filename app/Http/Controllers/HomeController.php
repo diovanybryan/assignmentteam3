@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 // use App\Models\Param;
 use App\Models\Kategori;
@@ -56,6 +56,7 @@ class HomeController extends BaseController{
 	}
 
 	public function getAllMobil(){
+		$data['status_login']	= Auth::check();
 		if (Auth::check() == 0) {
 			$data['role']			= 'guest';
 		} else {
@@ -65,11 +66,17 @@ class HomeController extends BaseController{
 	}
 
 	public function getForUpdateMobil(Request $request){
+		$data['status_login']	= Auth::check();
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
+		}
 		$mobil = tbl_mobil::where('id', $request->id)->get();
 		if($request->flag == "Service"){
-			return view('service', ['tbl_mobil' => $mobil, 'tbl_vendor' => tbl_vendor::all(), 'title' => 'SERVICE MOBIL GADERENTCAR']);
+			return view('service', ['tbl_mobil' => $mobil, 'tbl_vendor' => tbl_vendor::all(), 'title' => 'SERVICE MOBIL GADERENTCAR'], $data);
 		} else {
-			return view('contact', ['tbl_mobil' => $mobil, 'title' => 'UPDATE MOBIL GADERENTCAR']);
+			return view('contact', ['tbl_mobil' => $mobil, 'title' => 'UPDATE MOBIL GADERENTCAR'], $data);
 		}
 	}
 
@@ -118,6 +125,12 @@ class HomeController extends BaseController{
 	}
 
 	public function getAllSewa(){
+		$data['status_login']	= Auth::check();
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
+		}
 		foreach(tbl_sewa::all() as $all){
 			echo $all->id. '|' .$all->id_mobil. '|' .$all->id_user. '|' .$all->tgl_mulai. '|' .$all->tgl_akhir. '|' .$all->create_by.'</br>';
 		}
@@ -125,6 +138,12 @@ class HomeController extends BaseController{
 	}
 
 	public function getForUpdateSewa(Request $request){
+		$data['status_login']	= Auth::check();
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
+		}
 		$sewa = tbl_sewa::where('id', $request->id)->first();
 		return view('/', ['tbl_sewa' => $sewa, 'title' => 'Update Data Mobil' ]);
 	}
@@ -170,17 +189,61 @@ class HomeController extends BaseController{
 		$riwayat->kilometer = $request->kilometer;
 		$riwayat->keluhan_kendaraan = $request->keluhan;
 		$riwayat->save();
-		return $this->getAllMobil();
+		if($request->flag == "Service"){
+			return $this->getAllMobil();
+		}
+		else {
+			return $this->getAllRiwayat();
+		}
 	}
 
 	public function getAllRiwayat(){
-		foreach(tbl_riwayat::all() as $all){
-			echo $all->id. '|' .$all->id_mobil. '|' .$all->id_vendor. '|' .$all->create_by. '|' .$all->kilometer.'</br>';
+		$data['status_login']	= Auth::check();
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
 		}
-		// return view('home', ['tbl_riwayat' => tbl_riwayat::all(), 'title' => 'Riwayat Service']);
+		$tbl_riwayat = DB::table('tbl_riwayat')
+			->join ('tbl_mobil', 'tbl_riwayat.id_mobil', '=', 'tbl_mobil.id')
+			->join ('tbl_vendor', 'tbl_riwayat.id_vendor', '=', 'tbl_vendor.id')
+			->select(
+				'tbl_riwayat.id',
+				'tbl_riwayat.id_mobil',
+				'tbl_riwayat.id_vendor',
+				'tbl_mobil.img',
+				'tbl_mobil.nama as merk_mobil',
+				'tbl_riwayat.kilometer',
+				'tbl_vendor.nama as bengkel',
+				'tbl_riwayat.create_by as pic',
+				'tbl_riwayat.created_at',
+			)
+			->get()
+			->union(
+				DB::table('tbl_riwayat')
+				->join ('tbl_vendor', 'tbl_riwayat.id_vendor', '=', 'tbl_vendor.id')
+				->select(
+					'tbl_riwayat.id',
+					'tbl_riwayat.id_mobil',
+					'tbl_riwayat.id_vendor',
+					'tbl_riwayat.id_vendor as img',
+					'tbl_riwayat.id_mobil as merk_mobil',
+					'tbl_riwayat.kilometer',
+					'tbl_vendor.nama as bengkel',
+					'tbl_riwayat.create_by as pic',
+					'tbl_riwayat.created_at',
+				)->get()
+			);
+		return view('service', ['tbl_riwayat' => $tbl_riwayat, 'tbl_vendor' => tbl_vendor::all(), 'title' => 'DATA SERVICE MOBIL GADERENTCAR'], $data);
 	}
 
 	public function getForUpdateRiwayat(Request $request){
+		$data['status_login']	= Auth::check();
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
+		}
 		$riwayat = tbl_riwayat::where('id', $request->id)->first();
 		return view('/', ['tbl_riwayat' => $riwayat, 'title' => 'Update Data Mobil' ]);
 	}
@@ -210,16 +273,31 @@ class HomeController extends BaseController{
 	//tbl_vendor
 	public function insertVendor(Request $request){
 		$vendor = new tbl_vendor;
+		$request->validate([
+			'nama' => 'required'
+		]);
 		$vendor->nama  = $request->nama;
 		$vendor->save();
-		return view('/', ['tbl_vendor' => $vendor, 'title' => 'Data Mobil' ]);
+		return $this->getAllVendor();
 	}
 
 	public function getAllVendor(){
-		return view('service', ['tbl_vendor' => tbl_vendor::all(), 'title' => 'SERVICE MOBIL GADERENTCAR']);
+		$data['status_login']	= Auth::check();
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
+		}
+		return view('service', ['tbl_vendor' => tbl_vendor::all(), 'title' => 'INSERT VENDOR'], $data);
 	}
 
 	public function getForUpdateVendor(Request $request){
+		$data['status_login']	= Auth::check();
+		if (Auth::check() == 0) {
+			$data['role']			= 'guest';
+		} else {
+			$data['role']			= Auth::user()->role;			
+		}
 		$vendor = tbl_vendor::where('id', $request->id)->first();
 		return view('/', ['tbl_vendor' => $vendor, 'title' => 'Update Data Mobil' ]);
 	}
