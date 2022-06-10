@@ -75,7 +75,7 @@
           <div class="col-md-6 mx-auto">
               <div class="contact_form-container">
                 <div>
-                  @if($title == "DATA MOBIL GADERENTCAR")
+                  @if($title == "DATA SERVICE MOBIL")
                   <table border = "1px" width="100%">
                     <tr align="center">
                       <th>Nama</th>
@@ -91,7 +91,7 @@
                       <td align="center">
                         <a href="/editMobil/{{$m->id}}"> Edit </a> </br> 
                         <a href="/delete/{{$m->id}}" onclick="return confirm('Are you sure Delete {{$m->nama}}?')"> Delete </a> </br>
-                        <a href="/daftarService/{{$m->id}}/Service" onclick="return confirm('Are you sure Service {{$m->nama}}?')"> Service Kendaraan </a>
+                        <a href="/daftarService/{{$m->id}}" onclick="return confirm('Are you sure Service {{$m->nama}}?')"> Service Kendaraan </a>
                     </td>
                     </tr>
                     @endforeach
@@ -105,9 +105,8 @@
                     <div>
                       <input type="number" name = "kilometer" placeholder="Kilometer">
                     </div>
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="customFile" name = "img" accept="image/png, image/gif, image/jpeg">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
+                    <div>
+                      <input type="file" name = "img" placeholder="Upload Foto">
                     </div>
                     <!-- <div class="">
                       <input type="text" placeholder="Message" class="message_input">
@@ -115,6 +114,46 @@
                     <div class="mt-5 d-flex justify-content-center ">
                       <button type="submit">
                         Save
+                      </button>
+                    </div>
+                </form>
+                @elseif($title == "SERVICE MOBIL GADERENTCAR")
+                <form method = "POST" action="/serviceMobil">
+                @csrf
+                    @foreach($tbl_mobil as $m)
+                    <div align="center">
+                      <img src = "{{URL::to($m->img)}}" style="width: 450px;"/>
+                      </div>
+                    </br>
+                    <div>
+                      <input type="text" name = "create_by" value="Naufal Eka Sulaeman" value="Auth::user()->name" readonly>
+                    </div>
+                    <div style="display:none;">
+                      <input type="text" name = "id_mobil" value="{{$m->id}}" readonly>
+                    </div>
+                    <div>
+                      <input type="text" name = "nama_kendaraan" value="{{$m->nama}}" readonly>
+                    </div>
+                    <div>
+                      <input type="number" name = "kilometer" value="{{$m->kilometer}}" readonly>
+                    </div>
+                    @endforeach
+                    <div>
+                      <label style="color:#878889"> Select Vendor </label>
+                      <select name="id_vendor" class="form-control">
+                        @foreach($tbl_vendor as $v)
+                        <option value="{{$v->id}}">{{$v->nama}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    </br>
+                    <div>
+                      <label style="color:#878889"> Keluhan Kendaraan Anda </label>
+                      <textarea name = "keluhan" placeholder="Keluhan Kendaraan Anda" class="form-control" style="height: 150px;"></textarea>
+                    </div>
+                    <div class="mt-5 d-flex justify-content-center ">
+                      <button type="submit">
+                        Daftar Service
                       </button>
                     </div>
                 </form>
@@ -131,9 +170,8 @@
                     <div>
                       <input type="number" name = "kilometer" placeholder="Kilometer" value="{{$m->kilometer}}">
                     </div>
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="customFile" name = "img" accept="image/png, image/gif, image/jpeg">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
+                    <div>
+                      <input type="file" name = "img" placeholder="Upload Foto" value="{{$m->img}}">
                     </div>
                     @endforeach
                     <div class="mt-5 d-flex justify-content-center ">
